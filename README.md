@@ -30,6 +30,7 @@ Three more limits: the bill is unsigned, so the fixture does not establish who i
 - **Meter demo key** (signs the receipts and the manifest): kid `sb:issuer:Exe2v4V4bmeC`, public key `cf68bf76aaa58bc2acd0195cfd96439c23a1ec8bf9a1ddf5b95679bec05eb77e`, fingerprint `sha256:04619a1b52728ef3a6155e1f54d4c6034d10b36a757411ae8e595d39b560c5c0`.
 - **Manifest** (its record hash, which the bill names): `sha256:f8bbe201a7b67f80204337739f69ab0fc657ea93b8d565549392a26a42d02826`.
 - **Every file:** `SHA256SUMS`. The SHA-256 of `SHA256SUMS` itself identifies this version of the fixture; it is published beside the fixture, since it cannot be inside it.
+- **Versions:** `v1.0.1` changes only this README and `SHA256SUMS`; every other file is byte-identical to `v1.0.0`, so a result on either tag holds for both.
 
 ## Files
 
@@ -100,6 +101,7 @@ A consumer takes these, each as bytes:
 ### Constructions
 
 - **Receipt ID** (and the manifest's record hash): `sha256:` and the lowercase hex SHA-256 of the UTF-8 JCS of the whole envelope, signature included. It is the value the next record's `previousReceiptHash` holds.
+- **Signing input:** the JCS bytes of the envelope's `payload` alone, signed directly with no pre-hash (section 6.6). The receipt ID hashes the whole envelope, signature included, so the two are different bytes: an implementation that checks a signature over the ID's preimage, or derives an ID from the payload, fails every receipt.
 - **Range root:** the RFC 6962 Merkle tree over the receipt IDs in sequence order: each leaf SHA-256(0x00 and the 32 bytes of the ID), each node SHA-256(0x01, left, right), split at the largest power of two below the count.
 - **Key fingerprint:** `sha256:` and the hex SHA-256 of the 32-byte public key.
 
@@ -156,6 +158,18 @@ node consumer/run-cases.mjs
 ```
 
 It finds `@veritasacta/verify@0.10.21` through `npx` (or the `cli.js` named by `VERIFY_CLI`), refuses any other version, runs every case and prints one line each. `node consumer/check.mjs --case cases/07-altered-receipt` prints one case's full result. The reference consumer shows that the cases are decidable; it is not offered as a product.
+
+## Run it yourself
+
+No permission is needed. Anyone may run their own implementation of the input contract against this fixture and publish the result. A run says the most when:
+
+- it is written from this README and draft-03, not from `consumer/`, and says whether it calls `@veritasacta/verify` for signatures (if it does, the `signatures` and `keys` claims rest on that verifier, not on the run);
+- it pins the fixture by tag and by the SHA-256 of `SHA256SUMS`, and checks every file against `SHA256SUMS` before it runs;
+- for each case it reports the verdict, all eight claims with their codes, the decisive claim and `payment_ready`, and compares each field with `expected`, not the verdict alone;
+- it names who wrote the implementation and who ran it, on which operating system, runtime and dependency versions, and when;
+- it states what it does not establish: the keys are demo keys, the outcomes are simulated, there is no contract, and `payment_ready` is false in every case.
+
+Runs so far: one [second implementation](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6094738216), written from this README by someone other than this fixture's author, agrees on all 11 cases, codes included. The format, the verifier and the fixture share one author, so that is not yet an independent record; a run by someone who wrote none of them would be.
 
 ## How it was made
 
