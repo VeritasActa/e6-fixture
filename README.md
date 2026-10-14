@@ -10,7 +10,7 @@ It holds:
 - the signed period manifest that fixed that receipt set before the bill was cut: period, chain head, count and a Merkle root over the set;
 - a bill, supplied separately, whose lines name the receipts they bill, with every other receipt explicitly excluded;
 - a keys document with stated provenance, given to the consumer apart from the bundle;
-- 11 cases, each one change with its expected result, and a small reference consumer that runs them.
+- 12 cases, each one change with its expected result, and a small reference consumer that runs them.
 
 ## What this is not
 
@@ -30,7 +30,7 @@ Three more limits: the bill is unsigned, so the fixture does not establish who i
 - **Meter demo key** (signs the receipts and the manifest): kid `sb:issuer:Exe2v4V4bmeC`, public key `cf68bf76aaa58bc2acd0195cfd96439c23a1ec8bf9a1ddf5b95679bec05eb77e`, fingerprint `sha256:04619a1b52728ef3a6155e1f54d4c6034d10b36a757411ae8e595d39b560c5c0`.
 - **Manifest** (its record hash, which the bill names): `sha256:f8bbe201a7b67f80204337739f69ab0fc657ea93b8d565549392a26a42d02826`.
 - **Every file:** `SHA256SUMS`. The SHA-256 of `SHA256SUMS` itself identifies this version of the fixture; it is published beside the fixture, since it cannot be inside it.
-- **Versions:** `v1.0.1` changes only this README and `SHA256SUMS`; every other file is byte-identical to `v1.0.0`, so a result on either tag holds for both.
+- **Versions:** `v1.0.1` changes only this README and `SHA256SUMS`; every other file is byte-identical to `v1.0.0`, so a result on either tag holds for both. `v1.1.0` adds case 12 and `producer/case-12.mjs`, and changes this README, `SHA256SUMS` and `test/fixture.test.mjs`; every other file is byte-identical to `v1.0.1`, so a result on cases 01 to 11 holds on all three tags.
 
 ## Files
 
@@ -44,6 +44,7 @@ Three more limits: the bill is unsigned, so the fixture does not establish who i
 | `cases/` | One directory per case: `case.json` (inputs and expected result) and the files the case changes. |
 | `consumer/check.mjs`, `consumer/run-cases.mjs` | The reference consumer and the case runner. |
 | `producer/generate.mjs` | How the fixture was made. It needs the unpublished outcome meter and cannot reproduce these bytes. |
+| `producer/case-12.mjs` | How case 12 was derived from `manifest.json` and `bill.json`. Run again, it writes the same bytes; `--check` confirms the files on disk are those bytes. |
 | `SHA256SUMS` | The SHA-256 of every other file. |
 
 Every record is an envelope of draft-farley-acta-signed-receipts-03: `{"payload": {...}, "signature": {"alg": "EdDSA", "kid": "...", "sig": "..."}}`, an Ed25519 signature over the JCS (RFC 8785) bytes of the payload, and, after the first record of the meter's chain, a `previousReceiptHash` holding `sha256:` and the hex SHA-256 of the JCS of the whole previous envelope, signature included (section 6.7). The first August receipt links to the July statement, which is not part of this period; `cases/06-bill-cut-from-different-manifest/other-manifest.json` is that July statement.
@@ -148,8 +149,11 @@ Next to Nobulex's PR #24: each line here names the receipts it bills rather than
 | `09-period-mismatch` | A period mismatch | **FAIL** | scope FAIL (period_mismatch) |
 | `10-verifier-unavailable` | The verifier is unavailable | **ABSTAIN** | signatures ABSTAIN (verifier_unavailable) |
 | `11-export-truncated` (additional) | An export that leaves out its last receipt | **FAIL** | scope FAIL (count_mismatch, sequence_mismatch, head_mismatch, root_mismatch) |
+| `12-manifest-signature-altered` (additional) | A manifest signature altered, with the bill re-pointed at it | **FAIL** | signatures FAIL (manifest_signature_invalid) |
 
-Each `case.json` says what changed, why the result follows, and the inputs, as paths relative to its directory. A consumer agrees with a case when its verdict and its result for each decisive claim match `expected` and `payment_ready` is false. The full claim vector and the codes in `expected` are what the reference consumer reports, given for comparison.
+Each `case.json` says what changed, why the result follows, and the inputs, as paths relative to its directory. A consumer agrees with a case when its verdict, all eight claims and every code match `expected`, and `payment_ready` is false; `consumer/run-cases.mjs` compares exactly that.
+
+`decisive` names the claim each case was built to break. It is a label for readers, not a result a consumer computes: no fixed order of the claims gives it, since case 08 names `keys` over `signatures` and case 10 names `signatures` over `keys`. Matching the verdict and the decisive claim alone is too weak a test. In cases 01 to 11, what a signature check catches is also caught by a link (07) or by the key a record names (08), so a consumer that never checks a signature matches both in all eleven. Case 12 is caught by the signature alone.
 
 Run them all:
 
@@ -165,12 +169,17 @@ No permission is needed. Anyone may run their own implementation of the input co
 
 - it is written from this README and draft-03, not from `consumer/`, and says whether it calls `@veritasacta/verify` for signatures (if it does, the `signatures` and `keys` claims rest on that verifier, not on the run);
 - it pins the fixture by tag and by the SHA-256 of `SHA256SUMS`, and checks every file against `SHA256SUMS` before it runs;
-- for each case it reports the verdict, all eight claims with their codes, the decisive claim and `payment_ready`, and compares each field with `expected`, not the verdict alone;
+- for each case it reports the verdict, all eight claims with their codes and `payment_ready`, and compares each with `expected`, not the verdict alone;
 - it names who wrote the implementation and who ran it, on which operating system, runtime and dependency versions, and when;
 - it states what it does not establish: the keys are demo keys, the outcomes are simulated, there is no contract, and `payment_ready` is false in every case.
 
-Runs so far: one [second implementation](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6094738216), written from this README by someone other than this fixture's author, agrees on all 11 cases, codes included. The format, the verifier and the fixture share one author, so that is not yet an independent record; a run by someone who wrote none of them would be.
+Runs so far:
+
+- A [second implementation](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6094738216), written from this README by someone other than this fixture's author, agrees on all 11 cases of `v1.0.0`, codes included. The format, the verifier and the fixture share one author, so it is not an independent record.
+- The first [independent run](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6162358259), by someone who wrote none of the format, the verifier, the fixture or that consumer, and with its own Ed25519 and JCS rather than `@veritasacta/verify`, agrees on all 11 cases of `v1.0.1` and `v1.0.0` on the verdict, every claim and every code. Its two findings are in `v1.1.0`: the agreement rule above, and case 12, which it proposed.
 
 ## How it was made
 
 `producer/generate.mjs` ran the outcome meter (an unpublished prototype; commit `e9d8f6bcabc3`) over its sandbox at small scale for July and August 2026, closing each month with a signed period statement, and wrote August's range, the August statement, the bills and the cases. A second run of the same simulation under another demo key made case 08's bundle. The keys, and the engagement secret behind the receipts' unit references, existed only in that process's memory. Running the script again makes new keys and different bytes.
+
+Case 12 was added in `v1.1.0` by `producer/case-12.mjs`, which derives it from the pinned `manifest.json` and `bill.json` alone: it changes the first hex digit of the manifest's signature and re-points the bill at the altered manifest's record hash, using the reference consumer's own record hash. Running it again gives the same bytes, and `test/fixture.test.mjs` checks that it does.

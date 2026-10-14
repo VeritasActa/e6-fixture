@@ -15,6 +15,10 @@ test("every file listed in SHA256SUMS matches its digest", () => {
 
 test("the reference consumer gives every case its expected result", () => {
   const out = execFileSync(process.execPath, ["consumer/run-cases.mjs"], { cwd: root, encoding: "utf8" });
-  assert.match(out, /11 of 11 cases as expected/);
+  assert.match(out, /12 of 12 cases as expected/);
   assert.match(out, /payment_ready was false in every case/);
+});
+
+test("case 12 is exactly what producer/case-12.mjs derives from the pinned manifest and bill", () => {
+  execFileSync(process.execPath, ["producer/case-12.mjs", "--check"], { cwd: root, stdio: "ignore" });
 });
