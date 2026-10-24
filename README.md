@@ -175,8 +175,9 @@ No permission is needed. Anyone may run their own implementation of the input co
 
 Runs so far:
 
-- A [second implementation](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6094738216), written from this README by someone other than this fixture's author, agrees on all 11 cases of `v1.0.0`, codes included. The format, the verifier and the fixture share one author, so it is not an independent record.
-- The first [independent run](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6162358259), by someone who wrote none of the format, the verifier, the fixture or that consumer, and with its own Ed25519 and JCS rather than `@veritasacta/verify`, agrees on all 11 cases of `v1.0.1` and `v1.0.0` on the verdict, every claim and every code. Its two findings are in `v1.1.0`: the agreement rule above, and case 12, which it proposed.
+- A [second implementation](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6094738216), written from this README by someone other than this fixture's author, agrees on all 11 cases of `v1.0.0`, codes included. Its author ran it, so the run is recorded as reproduced, not independent.
+- A [third implementation](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6162358259), written from this README by someone who wrote none of the format, the verifier, the fixture or the second implementation, with its own Ed25519 and JCS rather than `@veritasacta/verify`, agrees on all 11 cases of `v1.0.1` and `v1.0.0` on the verdict, every claim and every code. Its author ran it too, so that run is also reproduced, not independent. Its two findings are in `v1.1.0`: the agreement rule above, and case 12, which it proposed.
+- The first [independent run](https://github.com/aeoess/agent-governance-vocabulary/issues/177#issuecomment-6209464568) used the third implementation, unmodified, on `v1.1.0`, by someone who wrote neither it nor this fixture: all 12 cases agree on the verdict, every claim and every code. A control run with the consumer's signature check replaced by `true` disagreed only on cases 07, 08 and 12.
 
 ## How it was made
 
