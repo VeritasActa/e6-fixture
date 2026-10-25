@@ -1,0 +1,101 @@
+{
+  "format": "e6-fixture.keys.v1",
+  "demo": true,
+  "notice": "DEMO KEYS FROM PUBLISHED SEEDS, for case 14 of the E6 fixture only. Each key is derived from the SHA-256 of the label given with it, so anyone can sign anything under either key, and a signature under them shows nothing about who signed. They demonstrate only the validity window rule. Neither is a ScopeBlind production key, any other real key, or a key of the fixture's pinned keys document (../../keys.json).",
+  "root": {
+    "role": "root",
+    "label": "E6 fixture case 14 root key (DEMO, published seed)",
+    "kid": "demo:e6-fixture:case-14:root:f5c014b128ffc1d9",
+    "alg": "Ed25519",
+    "public_key_hex": "0868f5633296d4cdef512362931abe64ad07299662f3edc699b33786c1dc61de",
+    "fingerprint": "sha256:f5c014b128ffc1d9fb8ce1fbf3f6f3f7b8cb61247a16dc1d6fcf0823cf1714a0",
+    "seed": {
+      "label": "VeritasActa/e6-fixture case 14 root key (DEMO). This seed is published, so anyone can sign under this key.",
+      "derivation": "SHA-256 of the UTF-8 bytes of the label, used as the 32-byte Ed25519 private key (RFC 8032, section 5.1.5)",
+      "hex": "f1de5d5493012c5902181859b74e70b9ebc5738ae4e2dbdf823aae9afcfb82b9"
+    },
+    "established": "Derived by producer/case-13-14.mjs from the published seed above, so anyone can derive its private half. In this fixture it signs only the meter key's certificate below. Case 14 pins this fingerprint in its case.json, in place of the fixture's root."
+  },
+  "keys": [
+    {
+      "kty": "OKP",
+      "crv": "Ed25519",
+      "x": "OU1lyUQByq72yu7nf22FucsXy1OD_dQn_oM4tiBluMc",
+      "kid": "demo:e6-fixture:case-14:meter:6ce2c9a5f103d58d",
+      "alg": "EdDSA",
+      "use": "sig",
+      "role": "meter",
+      "label": "E6 fixture case 14 meter key (DEMO, published seed)",
+      "public_key_hex": "394d65c94401caaef6caeee77f6d85b9cb17cb5383fdd427fe8338b62065b8c7",
+      "fingerprint": "sha256:6ce2c9a5f103d58d23e9d6bd7544e6aff0953678e7a5f5afef5ada16d22404df",
+      "signs": [
+        "ocs:outcome.v0",
+        "ocs:period_statement.v0"
+      ],
+      "valid_from": "2026-07-01T00:00:00.000Z",
+      "valid_until": "2026-09-01T01:00:00.000Z",
+      "status": "active",
+      "seed": {
+        "label": "VeritasActa/e6-fixture case 14 meter key (DEMO). This seed is published, so anyone can sign under this key.",
+        "derivation": "SHA-256 of the UTF-8 bytes of the label, used as the 32-byte Ed25519 private key (RFC 8032, section 5.1.5)",
+        "hex": "ddf82b6fa137b029e9bb0be6991b93a16652b37872406226bbb12524d8c0024c"
+      },
+      "established": "Derived by producer/case-13-14.mjs from the published seed above, so anyone can derive its private half. In this fixture it signs case 14's copy of the August 2026 records: the pinned outcome receipts and period statement, re-signed with only issuer_id and the hashes that follow from it changed. Certified by the case 14 root key; the certificate is below. Its window ends at 2026-09-01T01:00:00.000Z, the period statement's issued_at, so the statement and the last receipt, both issued at that instant, fall outside it.",
+      "certificate": {
+        "payload": {
+          "type": "e6-fixture:key_certificate.v1",
+          "spec": "draft-farley-acta-signed-receipts-03",
+          "issuer_id": "demo:e6-fixture:case-14:root:f5c014b128ffc1d9",
+          "issued_at": "2026-06-25T09:00:00.000Z",
+          "subject": {
+            "kid": "demo:e6-fixture:case-14:meter:6ce2c9a5f103d58d",
+            "public_key_hex": "394d65c94401caaef6caeee77f6d85b9cb17cb5383fdd427fe8338b62065b8c7",
+            "fingerprint": "sha256:6ce2c9a5f103d58d23e9d6bd7544e6aff0953678e7a5f5afef5ada16d22404df",
+            "role": "meter",
+            "signs": [
+              "ocs:outcome.v0",
+              "ocs:period_statement.v0"
+            ],
+            "valid_from": "2026-07-01T00:00:00.000Z",
+            "valid_until": "2026-09-01T01:00:00.000Z"
+          },
+          "statement": "DEMO, FROM PUBLISHED SEEDS. The E6 fixture's case 14 root demo key certifies this demo key to sign outcome receipts and period statements for the simulated Harbor Sandbox Co. engagement from 2026-07-01T00:00:00.000Z, included, until 2026-09-01T01:00:00.000Z, excluded. Both seeds are published, so anyone can sign under either key; they demonstrate only the validity window rule. Neither key is a production key.",
+          "demo": true
+        },
+        "signature": {
+          "alg": "EdDSA",
+          "kid": "demo:e6-fixture:case-14:root:f5c014b128ffc1d9",
+          "sig": "8d70b90ff68bbf534be0cdc221a2c0b6afce8c8c0ba61e33caca681dbf8ba741f58ffc3d9d60907616738303a50f7c60ba23df9f4801b8bed88e118ee7a6920e"
+        }
+      }
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-06-25T09:00:00.000Z",
+      "event": "meter key certified by the root key, valid from 2026-07-01 until 2026-09-01T01:00:00.000Z, that instant excluded",
+      "kid": "demo:e6-fixture:case-14:meter:6ce2c9a5f103d58d",
+      "certificate": "sha256:cf0001f11f6d60a4317664568b55e0cbc613436b8f6cec52c7e5d0fed1033c69"
+    }
+  ],
+  "referenced_only": [
+    {
+      "role": "buyer (simulated)",
+      "fingerprint": "sha256:750cbb5ce55f5162937379bcc23ba5f79b4d5196a3d9b37128d6db9404ecd6b7",
+      "appears_in": "manifest.json, payload.engagement.buyer_key_fingerprint",
+      "established": "A demo key generated on 2026-10-06 (UTC) only so that the simulated engagement names a buyer, as the outcome meter requires. Its private half was discarded at once. It signs nothing in this fixture and no E6 check reads it."
+    },
+    {
+      "role": "certifier (simulated)",
+      "fingerprint": "sha256:c4c62c97584a73974c1493afbbc7b5b60dc47e6d959dc4fad7b487382355bc0a",
+      "appears_in": "the engagement configuration, which the records name only by digest (payload.engagement.config in manifest.json)",
+      "established": "A demo key generated on 2026-10-06 (UTC) only so that the simulated engagement names a certifier, as the outcome meter requires. Its private half was discarded at once. It signs nothing in this fixture and no E6 check reads it."
+    }
+  ],
+  "times": "Every issued_at, valid_from, valid_until and history time in this document and in case 14's records is a simulated time of the sandbox (June to September 2026). Ed25519 signing is deterministic, so producer/case-13-14.mjs makes these same signatures each time it runs.",
+  "obtained_by_paying_side": "Placeholder for this test, as in ../../keys.json. Case 14 gives the consumer this document as its keys input and pins its root fingerprint in case.json. The seeds are published, so pinning it shows only the window rule at work, never anyone's identity.",
+  "generated": {
+    "release": "v1.2.0",
+    "by": "producer/case-13-14.mjs"
+  }
+}
