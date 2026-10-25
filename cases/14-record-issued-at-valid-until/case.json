@@ -1,0 +1,40 @@
+{
+  "format": "e6-fixture.case.v1",
+  "case": "14-record-issued-at-valid-until",
+  "title": "A record issued exactly at the meter key's valid_until",
+  "additional": "Added in v1.2.0, for a rule the README now states: the validity window includes valid_from and excludes valid_until.",
+  "notice": "DEMO KEYS FROM PUBLISHED SEEDS. This case's root and meter keys are derived from the SHA-256 of labels published in its keys.json and in producer/case-13-14.mjs, so anyone can sign anything under them. They demonstrate only the window rule, and a signature under them shows nothing about who signed. The case pins its own root fingerprint, not the fixture's.",
+  "change": "chain.jsonl and manifest.json are the pinned August receipts and period statement, re-signed under this case's meter key (kid demo:e6-fixture:case-14:meter:6ce2c9a5f103d58d). Each payload changes only in issuer_id and in the hashes that follow from re-signing: previousReceiptHash, and in the statement also range.head and range.root. The first receipt still links to the pinned July statement, outside the period. bill.json is the matching bill with each receipt ID replaced by the re-signed one, and its manifest by the re-signed statement's record hash (sha256:cd2aa3214a5442b75d558ab714b06677cc12fc9abd34a00b95e1039c83985ac0). keys.json is the keys document the paying side pins for this case, under its own root: the meter key's certificate, signed by that root, gives valid_from 2026-07-01T00:00:00.000Z and valid_until 2026-09-01T01:00:00.000Z, the statement's issued_at.",
+  "why": "Keys: the window is [valid_from, valid_until), so a record issued at valid_until is outside it. valid_until is the statement's issued_at because the statement is the last record signed for the period and no record was issued after it; the last receipt (sequence 86) was issued at the same instant. So exactly those two records fall outside the window, both at valid_until and none after it, and the other 50 receipts fall inside. An earlier valid_until would put later records after it, outside under either reading, and the case would no longer test the boundary. Every signature verifies under the case meter key, every link, head and root holds, and the bill matches the receipts, so a consumer that counted valid_until as inside the window would pass this bill.",
+  "inputs": {
+    "receipts": "chain.jsonl",
+    "manifest": "manifest.json",
+    "bill": "bill.json",
+    "keys": "keys.json",
+    "root_fingerprint": "sha256:f5c014b128ffc1d9fb8ce1fbf3f6f3f7b8cb61247a16dc1d6fcf0823cf1714a0",
+    "earlier_bills": [],
+    "verifier": "@veritasacta/verify@0.10.21"
+  },
+  "expected": {
+    "verdict": "FAIL",
+    "decisive": [
+      "keys"
+    ],
+    "claims": {
+      "keys": "FAIL",
+      "signatures": "PASS",
+      "scope": "PASS",
+      "coverage_bill_to_receipts": "NOT_EVALUATED",
+      "coverage_receipts_to_bill": "NOT_EVALUATED",
+      "uniqueness": "NOT_EVALUATED",
+      "quantities": "NOT_EVALUATED",
+      "amount": "NOT_EVALUATED"
+    },
+    "codes": {
+      "keys": [
+        "outside_key_window"
+      ]
+    },
+    "payment_ready": false
+  }
+}

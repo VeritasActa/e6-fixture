@@ -1,0 +1,42 @@
+{
+  "format": "e6-fixture.case.v1",
+  "case": "13-unexpected-signer-no-verifier",
+  "title": "An unexpected signer, with no verifier",
+  "additional": "Added in v1.2.0, for a rule the README now states: within a claim a failure outranks a check that could not be decided.",
+  "change": "The inputs are case 08's, read where case 08 keeps them: the bundle signed by a different demo key (kid sb:issuer:C4T82bZnZxSY) and the pinned keys document (../../keys.json). As in case 10, the consumer runs with no verifier it can use (here a path that does not exist). No file is copied or changed.",
+  "why": "Keys: every record names a key the pinned keys document does not hold, and comparing a kid needs no verifier, so that check fails. The certificate check cannot be decided without a verifier, but within a claim a failure outranks a check that could not be decided, so keys is FAIL with unexpected_signer, not ABSTAIN. Signatures: no signature can be established and no check of that claim fails, so it abstains, as in case 10. Scope needs no verifier and passes, as in case 08. The verdict is FAIL because a claim failed. A consumer that let an undecided check outrank a failure would report keys ABSTAIN and the verdict ABSTAIN.",
+  "inputs": {
+    "receipts": "../08-unexpected-signer/chain.jsonl",
+    "manifest": "../08-unexpected-signer/manifest.json",
+    "bill": "../08-unexpected-signer/bill.json",
+    "keys": "../../keys.json",
+    "root_fingerprint": "sha256:0a8d834701f5468883e891be97240182dd26c23170cb80174449755d6244f926",
+    "earlier_bills": [],
+    "verifier": "unavailable"
+  },
+  "expected": {
+    "verdict": "FAIL",
+    "decisive": [
+      "keys"
+    ],
+    "claims": {
+      "keys": "FAIL",
+      "signatures": "ABSTAIN",
+      "scope": "PASS",
+      "coverage_bill_to_receipts": "NOT_EVALUATED",
+      "coverage_receipts_to_bill": "NOT_EVALUATED",
+      "uniqueness": "NOT_EVALUATED",
+      "quantities": "NOT_EVALUATED",
+      "amount": "NOT_EVALUATED"
+    },
+    "codes": {
+      "keys": [
+        "unexpected_signer"
+      ],
+      "signatures": [
+        "verifier_unavailable"
+      ]
+    },
+    "payment_ready": false
+  }
+}

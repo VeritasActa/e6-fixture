@@ -1,0 +1,180 @@
+{
+  "format": "e6-fixture.bill.v1",
+  "demo": true,
+  "notice": "SIMULATED BILL for the E6 interoperability fixture. Not a real invoice: the vendor, the buyer and the work are fictional.",
+  "bill_id": "HARBOR-DEMO-2026-08-001",
+  "issued_on": "2026-09-10",
+  "vendor": "Vendor B (fictional)",
+  "buyer": "Harbor Sandbox Co. (fictional)",
+  "period": "2026-08",
+  "manifest": "sha256:cd2aa3214a5442b75d558ab714b06677cc12fc9abd34a00b95e1039c83985ac0",
+  "currency": "USD",
+  "lines": [
+    {
+      "line_id": "L1",
+      "description": "Resolved conversations, final 1 to 15 August 2026",
+      "billing_class": "resolution",
+      "unit_price_minor": 99,
+      "quantity": 15,
+      "amount_minor": 1485,
+      "receipts": [
+        "sha256:747ac590f2ec191b1489f4837043d60b983d735ada3a0a14c58fe54622a28edd",
+        "sha256:962818bf036075a558510f65069758023b15e63678994015b04f3c523e2985a1",
+        "sha256:26ab0625fcffee6b8c22c48e3df0b3f131ba740f22c6f2d6477c87d8a46444b1",
+        "sha256:fe38357c39bfb45e75e8f12a4456ea6f9bec4cbe03b09b594ea2fd9b18748c56",
+        "sha256:bfc83ab1660fc2a0a4cd53eac0c0af02f86222001520b00e648221de29dcf041",
+        "sha256:853a4c9140d80e3bb6880f53d3f57da95eeee13bb3d9efe7b3f391910ec33dc2",
+        "sha256:00f81e1407a434b5cfd55b29dbd63f4aae49fcb0ae0263dcd92b7e291242de93",
+        "sha256:f63c0b126665fa8a50240b0e2797c9cc2fababeca697fa0d39cb36a9fcb37a57",
+        "sha256:c11e90963b3a6d49d33f178da542cde925bea059442f33dfbe8f4ed74766dea8",
+        "sha256:71b998c1488df2071b4c934974dcb2821bd0a10360f94ce04098c882b6d3ca1e",
+        "sha256:89ea0491f46e33a771805ccd022de362b1a6bdaf4715cf530e7376bd93b0304f",
+        "sha256:e000593e902999c3497d933d5a03734f75ebc9a094d02836c9265490201dcb36",
+        "sha256:96d4481157d4a0bfd1181c975a07fb545b2fb0318cceb663d4db70e311e059a9",
+        "sha256:a2f3b0f6818f0b7dd769f95e4c7948f5c559c24c3fbb7af199e3d0983b9df499",
+        "sha256:0fa5a1cb4d42ea3ccfe60d079029649aee4006c5e5debb040d9bf4b359516fa5"
+      ]
+    },
+    {
+      "line_id": "L2",
+      "description": "Resolved conversations, final 16 to 31 August 2026",
+      "billing_class": "resolution",
+      "unit_price_minor": 99,
+      "quantity": 13,
+      "amount_minor": 1287,
+      "receipts": [
+        "sha256:3e164576cfafd859f6fd2ce9b42a60b1e7b8bf8a81d98f299b60c53d263d4f2c",
+        "sha256:2f129e11683368aeb8773e52d4581fe2299e08ff4b25f7db5d5cf2d2880127fb",
+        "sha256:6164a4b36aea35dfc1d103c37ee006cdb528d34596ca516b3f1728466d645551",
+        "sha256:168fd752cd1cf65cc02f999a3e7f01b39f7cfdb4efc4f578616bc4ce40882345",
+        "sha256:b41d68114e6b69ee2eded748b15fa78cd9a384129e1623f0bb236d971f9c583c",
+        "sha256:1a76d9573c8127f29989f5c5dd4c45158cc81ee2b6df340047144a4288378878",
+        "sha256:1fea7184af3f219ba29871a5c8fc3a60a774fd9f4bfc14bddf5fae57842a2a25",
+        "sha256:cf95b1fcceb5cb39f2fbee694d13ab16b74e585566be342a82c832e23833ee14",
+        "sha256:5c110d3b89fd011290ec4c7f8c4b9f4e40f69c42982f9fa74fcabd025c3f1686",
+        "sha256:ed6a9eb2dec4d5dae8b8a9308d79a2cef3fd35e23dddc0a5794ae5742ed49ff2",
+        "sha256:467a7c1d1e75ad76701a81f5287798a646f688ac89bd6dbb2d1219424c7eb8fe",
+        "sha256:4875b9a9f5e30081f2627ddc8a495433cae150f89b8b45354b656cfa9b709ba8",
+        "sha256:ef38cd98ecaa33c68c9beb3e645d3d6256e326ef5e1c3faf4597df07e05a8012"
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "receipt": "sha256:5b8d1ee73fc8f109be9b3a9aa45278accd88a233bd1547a2fc9307df4beb3602",
+      "reason": "not_billable",
+      "state": "no_substantive_answer"
+    },
+    {
+      "receipt": "sha256:1b146ec660160a35d549a2fbe26485eacc198012ecac8b10bf10215f7b01b681",
+      "reason": "not_billable",
+      "state": "escalation_requested"
+    },
+    {
+      "receipt": "sha256:9f8433f88d8506d828fd4169d04d0488ecd199aeb8956d5049e9bb184c2c3492",
+      "reason": "not_billable",
+      "state": "no_substantive_answer"
+    },
+    {
+      "receipt": "sha256:c929e7484b26f3f663d3d24d3c07bafdafb7e2cee20f9ab98835a2eda4883176",
+      "reason": "not_billable",
+      "state": "link_only"
+    },
+    {
+      "receipt": "sha256:38149e48a2c8397fd51b5ec6c9a59ea2d63f8dace495af12783cca3e78457538",
+      "reason": "not_billable",
+      "state": "undetermined_long_running"
+    },
+    {
+      "receipt": "sha256:c363abc2a27555fb14ee7a4971231a928b4edd1d9c775dc94c28d6805064a6b7",
+      "reason": "not_billable",
+      "state": "no_substantive_answer"
+    },
+    {
+      "receipt": "sha256:ec2ccc7601e31eadab1cb9d37cf88876ab311f7232fdfd60dba18cc12637a299",
+      "reason": "not_billable",
+      "state": "undetermined_evidence"
+    },
+    {
+      "receipt": "sha256:1b51833fa6860e09b317aa1de8a73edd56c2b88a13f5e8fe43e84c7c2162cf3e",
+      "reason": "not_billable",
+      "state": "excluded_duplicate"
+    },
+    {
+      "receipt": "sha256:3112b950ab4ac386ac3d9c3f5e1d0c7530f094eaff4ea180d143b67c2ed41ad6",
+      "reason": "not_billable",
+      "state": "human_involved"
+    },
+    {
+      "receipt": "sha256:b9f41b2f96a2edea51d8792d2539745b05a9e745fa7abe0063393bee2faa6920",
+      "reason": "not_billable",
+      "state": "negative_feedback"
+    },
+    {
+      "receipt": "sha256:abe72840a76e59819450a06f7150b351d6e559c7c8bb5600d93f3e391a290828",
+      "reason": "not_billable",
+      "state": "handed_off"
+    },
+    {
+      "receipt": "sha256:693e2dd61f57122795ced294793f6b487aaef8b1605da5d05443d37ac287599a",
+      "reason": "not_billable",
+      "state": "excluded_not_a_request"
+    },
+    {
+      "receipt": "sha256:680887ef20bb1cd42ad68158ff9395d64ca2cc9d00180a3b58992012672ee2f5",
+      "reason": "not_billable",
+      "state": "excluded_not_a_request"
+    },
+    {
+      "receipt": "sha256:6c3bb61f085ea6e08d308df5c57ba5ee14de80d864467723f32d67c892a2d330",
+      "reason": "not_billable",
+      "state": "negative_feedback"
+    },
+    {
+      "receipt": "sha256:8a69659e6913317853def185aad4f61cc46caab4470ca621af0a9f3a62b7aae7",
+      "reason": "not_billable",
+      "state": "human_involved"
+    },
+    {
+      "receipt": "sha256:3e2d7cf19c0c0d7231ff8c71e45a9e83da5ef132b9c4f7ddb781645ae97dd81e",
+      "reason": "not_billable",
+      "state": "escalation_requested"
+    },
+    {
+      "receipt": "sha256:7da2dd0ee83f0d9d8149ceac227f9b7456e7880d3eb53b5a533891f2037f94f7",
+      "reason": "not_billable",
+      "state": "answer_incomplete"
+    },
+    {
+      "receipt": "sha256:7fbda9e8848c8b6fb17ad0bf9a7f9b6dc4b75f6e1844743ad668493897c9625a",
+      "reason": "not_billable",
+      "state": "answer_incomplete"
+    },
+    {
+      "receipt": "sha256:5148f11c4154947995721518b27f23c00e7ac3a9b8a948678d728ff01754f45e",
+      "reason": "not_billable",
+      "state": "no_substantive_answer"
+    },
+    {
+      "receipt": "sha256:7de2ec8f792e1898d01474a31f3314cac5f67b3afa29fa4862cd0ec43d81c55c",
+      "reason": "not_billable",
+      "state": "escalation_requested"
+    },
+    {
+      "receipt": "sha256:78724f06230d182e110b8930550248143ad3e11459c8340765a7b13d46bbd29d",
+      "reason": "not_billable",
+      "state": "recontact_same_issue"
+    },
+    {
+      "receipt": "sha256:3c250a3aa95604d80d1848a43e76956779e27bb06015c9dbde7482cac88e797f",
+      "reason": "not_billable",
+      "state": "recontact_same_issue"
+    },
+    {
+      "receipt": "sha256:44c4191d58d5d76026b5595ab79c0dc54f20fb7196b545da77031444f2a22364",
+      "reason": "not_billable",
+      "state": "link_only"
+    }
+  ],
+  "total_minor": 2772
+}
